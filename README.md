@@ -24,7 +24,7 @@ This project aims to move beyond traditional cricket analysis by implementing da
 
 ## ✨ Features
 
-- **Web Scraping**: Automated data collection from ESPN Cricinfo for comprehensive cricket statistics
+- **Web Scraping**: Production-grade modular scraper in Python (CLI) and legacy Jupyter Notebook for ESPNCricinfo data collection
 - **Data Preprocessing**: Robust data cleaning and transformation pipelines
 - **Exploratory Data Analysis**: In-depth statistical analysis and visualization of cricket data
 - **Predictive Modeling**: Multiple ML models for run and wicket prediction
@@ -33,17 +33,29 @@ This project aims to move beyond traditional cricket analysis by implementing da
 
 ## 📁 Project Structure
 
-```
-Beyond-Instinct-Data-driven-Cricket-Projection/
-│
-├── Web-Scraping.ipynb                    # Web scraping from ESPN Cricinfo
-├── Data_preprocessing.ipynb              # Data cleaning and preprocessing
-├── Exploratory_data_analysis.ipynb       # EDA and statistical analysis
-├── Predictive_Analysis.ipynb            # Player run prediction models
-├── Ball_By_Ball_Run_Prediction.ipynb    # Ball-by-ball run prediction
-├── run_wicket_forecast.ipynb             # Run and wicket forecasting
-└── README.md                             # Project documentation
-```
+ ```text
+ Beyond-Instinct-Data-driven-Cricket-Projection/
+ │
+ ├── data/                                 # Processed datasets and metadata
+ ├── Research/                             # Research notebooks, metadata scripts, and raw JSON zip
+ │   ├── Exploratory_data_analysis.ipynb   # EDA and statistical analysis notebook
+ │   ├── Web-Scraping.ipynb                # Legacy web scraping notebook
+ │   └── extract_metadata.py               # Script to extract match metadata from JSON README
+ ├── src/
+ │   ├── EDA/                              # EDA module package
+ │   │   ├── cricket_processor.py          # Cricsheet data processing classes
+ │   │   └── espn_scraper.py               # ESPN Cricinfo results scraper class
+ │   └── scraper/                          # Modular scraper package
+ │       ├── engine.py                     # Core scraping engine
+ │       ├── models.py                     # Data models (Batting/Bowling)
+ │       ├── run_scraper.py                # CLI entry point for scraping
+ │       └── utils.py                      # Data cleaning utilities
+ ├── Data_preprocessing.ipynb              # Data cleaning and preprocessing
+ ├── Predictive_Analysis.ipynb             # Player run prediction models
+ ├── Ball_By_Ball_Run_Prediction.ipynb     # Ball-by-ball run prediction
+ ├── run_wicket_forecast.ipynb             # Run and wicket forecasting
+ └── README.md                             # Project documentation
+ ```
 
 ## 🚀 Installation
 
@@ -68,26 +80,44 @@ pip install -r requirements.txt
 ### Setup
 
 1. Clone the repository:
-```bash
-git clone https://github.com/arko-saha/Beyond-Instinct-Data-driven-Cricket-Projection.git
-cd Beyond-Instinct-Data-driven-Cricket-Projection
-```
-
-2. Initialize git (if not already done):
-```bash
-git init
-```
-
-3. Open Jupyter Notebook or upload to Google Colab:
-```bash
-jupyter notebook
-```
+ 
+ ```bash
+ git clone https://github.com/arko-saha/Beyond-Instinct-Data-driven-Cricket-Projection.git
+ cd Beyond-Instinct-Data-driven-Cricket-Projection
+ ```
+ 
+ 
+ 2. Initialize git (if not already done):
+ 
+ ```bash
+ git init
+ ```
+ 
+ 3. Open Jupyter Notebook or upload to Google Colab:
+ 
+ ```bash
+ jupyter notebook
+ ```
 
 ## 📖 Usage
 
+### Data Collection (Scraping)
+
+The project now features a production-grade CLI scraper. It is recommended over the legacy notebook for stability and clean data.
+
+**To scrape batting stats:**
+```bash
+python src/scraper/run_scraper.py --type batting --limit-pages 5 --output data/batters.csv
+```
+
+**To scrape bowling stats:**
+```bash
+python src/scraper/run_scraper.py --type bowling --limit-pages 5 --output data/bowlers.csv
+```
+
 ### Running the Notebooks
 
-1. **Web Scraping**: Start with `Web-Scraping.ipynb` to collect data from ESPN Cricinfo
+1. **Web Scraping (Legacy)**: Use `Web-Scraping.ipynb` if you prefer an interactive environment for data collection.
 2. **Data Preprocessing**: Run `Data_preprocessing.ipynb` to clean and prepare the data
 3. **Exploratory Analysis**: Execute `Exploratory_data_analysis.ipynb` for insights
 4. **Predictive Models**: Use `Predictive_Analysis.ipynb` and `Ball_By_Ball_Run_Prediction.ipynb` for predictions
@@ -108,28 +138,25 @@ drive.mount('/content/drive')
 
 ## 📓 Notebooks Description
 
-### 1. Web-Scraping.ipynb
+### 1. Modular Scraper (src/scraper/)
 
-**Purpose**: Automated data collection from ESPN Cricinfo
+**Purpose**: Production-grade, automated data collection from ESPN Cricinfo.
 
 **Features**:
-- Scrapes match-by-match batting statistics
-- Scrapes match-by-match bowling statistics
-- Collects overall batting and bowling statistics
-- Position-wise statistics (Upper Order, Middle Order, Lower Order for batting; Opening, First Change, Second Change, Others for bowling)
-- Handles pagination automatically
-- Data cleaning and formatting
-- Exports to Excel format
+- **engine.py**: Centralized handling of requests, rate limiting (1.5s delay), and pagination logic.
+ 
+ - **utils.py**: Advanced cleaning functions (e.g., extracting not-out status, cleaning opposition 'v ' prefix, spliting player-country).
+- **models.py**: Type-safe `BattingStat` and `BowlingStat` data structures.
+- **CLI Interface**: Easy-to-use `run_scraper.py` script.
 
-**Output Files**:
-- `batters.xlsx` - Match-by-match batting data
-- `bowlers.xlsx` - Match-by-match bowling data
-- `Overall_batters.xlsx` - Overall batting statistics
-- `Overall_bowlers.xlsx` - Overall bowling statistics
-- `Upper_Order.xlsx`, `Middle_Order.xlsx`, `Lower_Order.xlsx` - Position-wise batting
-- `Opening_Bowlers.xlsx`, `First_change_bowlers.xlsx`, `Second_change_bowlers.xlsx`, `Other_changes_bowlers.xlsx` - Position-wise bowling
+**Usage**:
+```bash
+ python src/scraper/run_scraper.py --type [batting|bowling] --limit-pages [N] --output [PATH]
+ ```
+ 
+ ---
 
-### 2. Data_preprocessing.ipynb
+### 2. Web-Scraping.ipynb (Legacy)
 
 **Purpose**: Data cleaning, transformation, and initial modeling
 
@@ -149,22 +176,25 @@ drive.mount('/content/drive')
 
 ### 3. Exploratory_data_analysis.ipynb
 
-**Purpose**: Statistical analysis and visualization of cricket data
+**Purpose**: Statistical analysis and visualization of cricket data. Fully refactored into a modular, production-grade structure using dedicated helper modules.
 
-**Features**:
-- Downloads T20 cricket data from Cricsheet.org
-- Processes match metadata
-- Team-specific analysis (e.g., Bangladesh performance)
-- Strike rate analysis by bowling team
-- Over-wise performance analysis (e.g., overs 17-20)
-- Data visualization with seaborn and matplotlib
-- Custom class-based data processing (`CricketDataProcessor`, `MatchData`)
+**Supporting Modules**:
+- **`cricket_processor.py`**: Contains `CricsheetProcessor` (download + metadata parsing) and `MatchDataProcessor` (ball-by-ball loading + death over aggregation).
+- **`scraper.py`**: Contains `EspnCricinfoScraper` for fetching match results from ESPN Cricinfo.
+
+**Key DataFrames**:
+| Variable | Description |
+|---|---|
+| `df` | All T20 match metadata from Cricsheet |
+| `match_results_df` | ESPN match results for the team |
+| `team_df` | Merged metadata + match results |
+| `ball_by_ball_df` | Full ball-by-ball data for Bangladesh |
+| `grouped_data` | Death over (17-20) strike rate aggregation |
 
 **Analysis Includes**:
-- Strike rate by bowling team
-- Performance in death overs (17-20)
+- Strike rate by bowling team in death overs
+- Performance trends over time
 - Match result analysis
-- Team performance trends
 
 ### 4. Predictive_Analysis.ipynb
 
@@ -293,8 +323,8 @@ drive.mount('/content/drive')
    - Team performance data
 
 2. **Cricsheet.org** (`cricsheet.org`)
-   - T20 match data in CSV format
-   - Ball-by-ball records
+   - T20 match data in JSON format (`t20s_male_json.zip`)
+   - Ball-by-ball records (consolidated into CSV)
    - Match metadata
 
 ## 🎯 Key Results
@@ -403,11 +433,9 @@ This project is open source and available under the [MIT License](LICENSE).
 
 For questions, suggestions, or collaborations, please open an issue on GitHub or contact the repository owner.
 
----
-
 **Note**: This project is designed for research and educational purposes. Please respect the terms of service of data sources (ESPN Cricinfo, Cricsheet.org) when scraping data. Consider implementing rate limiting and appropriate delays between requests.
+ 
+ ---
 
----
-
-*Last Updated: 2024*
+*Last Updated: March 2026*
 

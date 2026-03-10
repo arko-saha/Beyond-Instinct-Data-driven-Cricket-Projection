@@ -1,0 +1,51 @@
+player_name,country,overs,maidens,runs,wickets,economy,inns,opposition,ground,start_date
+S Yeshey,BHU,4.0,1,7,8,1.75,2,Myanmar,Gelephu,26 Dec 2025
+Syazrul Idrus,MAS,4.0,1,8,7,2.0,1,China,Kuala Lumpur,26 Jul 2023
+Ali Dawood,BHR,4.0,0,19,7,4.75,2,Bhutan,Gelephu,11 Dec 2025
+H Bharadwaj,SGP,4.0,2,3,6,0.75,1,Mongolia,Bangi,5 Sep 2024
+MA Baig,MWI,4.0,0,9,6,2.25,2,Rwanda,Benoni,16 Dec 2023
+Rizwan Butt,BHR,3.5,1,9,6,2.34,1,Malawi,Blantyre,12 Jul 2025
+JJ Smit,NAM,4.0,1,10,6,2.5,2,Uganda,Windhoek,10 Apr 2022
+Mustafizur Rahman,BAN,4.0,1,10,6,2.5,1,U.S.A.,Prairie View,25 May 2024
+A Bohara,NEP,3.4,0,11,6,3.0,2,Maldives,Hangzhou,1 Oct 2023
+Nasrulla Rana,HKG,4.0,1,12,6,3.0,2,P.N.G.,Kuala Lumpur,24 Sep 2023
+PS Bais,Mex,4.0,0,14,6,3.5,2,Costa Rica,Guacima,14 Apr 2024
+W Nalisa,VAN,4.0,0,16,6,4.0,2,Fiji,Apia (No 2),19 Aug 2024
+ML Castillo,Blz,4.0,0,16,6,4.0,1,Panama,Buenos Aires,14 Dec 2024
+OC McCoy,WI,4.0,1,17,6,4.25,1,India,Basseterre,1 Aug 2022
+PK Langat,KENYA,4.0,1,17,6,4.25,1,Mali,Kigali,20 Nov 2022
+Waseem Yaqoob,LES,4.0,1,18,6,4.5,2,Mali,Dar-es-Salaam,25 Sep 2024
+Dawood Ahmadzai,Fran,4.0,0,21,6,5.25,2,Malta,Dreux,9 May 2024
+R Abdulkareem,NGA,4.0,0,22,6,5.5,2,Botswana,Abuja,28 Nov 2024
+R Sakurano-Thomas,JPN,3.5,0,26,6,6.78,2,Thailand,Bangkok,2 Feb 2024
+Yasir Ali,ESP,4.0,0,28,6,7.0,1,Croatia,Zagreb,2 Aug 2024
+GA Priandana,INA,1.0,0,1,5,1.0,2,Cambodia,Bali,23 Dec 2025
+YM Nkanya,TAN,4.0,2,2,5,0.5,2,Cameroon,Kigali,9 Dec 2022
+L Rossi,Arg,4.0,1,3,5,0.75,1,Chile,Buenos Aires,20 Oct 2023
+Sufiyan Muqeem,PAK,2.4,0,3,5,1.12,1,Zimbabwe,Bulawayo,3 Dec 2024
+B Kumar,IND,4.0,1,4,5,1.0,2,Afghanistan,Dubai (DICS),8 Sep 2022
+MA Baig,MWI,1.5,0,4,5,2.18,1,Cameroon,Dar-es-Salaam,25 Sep 2024
+Junaid Aziz,BHR,1.4,0,5,5,3.0,1,Germany,Al Amerat,18 Feb 2022
+Zain Ul Abidin,KSA,3.0,1,6,5,2.0,2,Bhutan,Bangkok,15 Feb 2024
+C Hinze,JPN,4.0,1,6,5,1.5,2,Mongolia,Sano,11 May 2024
+K Kato-Stafford,JPN,3.2,0,7,5,2.1,2,Mongolia,Sano,8 May 2024
+C Rumistrzewicz,ESP,2.5,1,7,5,2.47,1,Croatia,Zagreb,3 Aug 2024
+GM Mwendwa,KENYA,4.0,1,7,5,1.75,2,Gambia,Nairobi (Gym),22 Oct 2024
+M Shahbaz Butt,NOR,4.0,1,8,5,2.0,2,Czech Rep.,Vantaa,25 Jul 2022
+H Ssenyondo,UGA,4.0,2,8,5,2.0,1,Nigeria,Rwanda,8 Dec 2024
+Anjar Tadarus,INA,4.0,0,8,5,2.0,1,South Korea,Bali,9 Jul 2025
+Muhammad Saqlain,HUN,3.1,0,8,5,2.52,2,Luxembourg,Szodliget,25 Jul 2025
+S Lamichhane,NEP,4.0,0,9,5,2.25,1,Kenya,Nairobi (Gym),29 Aug 2022
+SA Okpe,NGA,4.0,1,9,5,2.25,1,Cameroon,Rwanda,5 Dec 2022
+Mohammad Kamran,ESP,4.0,0,9,5,2.25,1,Isle of Man,Cartagena,25 Feb 2023
+KV Morea,PNG,4.0,0,9,5,2.25,2,Philippines,Port Moresby,23 Jul 2023
+Ma Qiancheng,CHN,4.0,0,9,5,2.25,2,Myanmar,Bangkok,30 Jan 2024
+Fazalhaq Farooqi,AFG,4.0,0,9,5,2.25,2,Uganda,Providence,3 Jun 2024
+Waji Ul Hassan,KSA,3.0,0,9,5,3.0,2,Thailand,Kuala Lumpur,28 Apr 2025
+SM Curran,ENG,3.4,0,10,5,2.72,1,Afghanistan,Perth,22 Oct 2022
+A Yon,STHEL,3.0,0,10,5,3.33,2,Lesotho,Kigali,22 Nov 2022
+KDA Lukies,PHI,4.0,1,10,5,2.5,2,Vanuatu,Port Moresby,29 Jul 2023
+SA Jumbe,TAN,3.3,0,10,5,2.85,2,Nigeria,Accra,17 Mar 2024
+J Coetzee,THA,3.0,0,10,5,3.33,1,Indonesia,Gelephu,20 Oct 2024
+L Bonner,Blz,3.5,0,10,5,2.6,1,Brazil,Buenos Aires,15 Dec 2024
+LA Burns,ESP,4.0,0,11,5,2.75,1,Guernsey,Almeria,30 Apr 2022
