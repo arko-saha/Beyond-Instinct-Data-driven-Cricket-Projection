@@ -1,0 +1,80 @@
+# Cricket Run Prediction - Configuration
+# Production-grade configuration for the cricket analytics system
+
+# Data Configuration
+data:
+  historical_data_file: "data/historical_data.csv"
+  player_stats_file: "data/player_stats.csv"
+  test_size: 0.25
+  random_state: 42
+
+# Feature Engineering
+features:
+  n_features_select: 20
+  selection_method: "importance"  # "importance", "correlation", "variance"
+  categorical_encoding: "label"   # "label", "onehot"
+
+# Model Training
+training:
+  random_forest:
+    tune_hyperparameters: true
+    param_grid:
+      n_estimators: [100, 200]
+      max_depth: [10, 20, null]
+      min_samples_split: [2, 5]
+      min_samples_leaf: [1, 2]
+
+  decision_tree:
+    tune_hyperparameters: true
+    param_grid:
+      max_depth: [3, 4, 5, 6, 7]
+      min_samples_split: [2, 3, 4, 5, 10]
+
+  xgboost:
+    tune_hyperparameters: true
+    param_grid:
+      n_estimators: [100, 200]
+      max_depth: [3, 6, 9]
+      learning_rate: [0.01, 0.1, 0.3]
+      subsample: [0.8, 1.0]
+      colsample_bytree: [0.8, 1.0]
+
+  neural_network:
+    architectures: ["simple", "advanced", "residual"]
+    epochs: 100
+    batch_size: 64
+    validation_split: 0.2
+    early_stopping_patience: 10
+    lr_scheduler_patience: 5
+
+# Model Evaluation
+evaluation:
+  cv_folds: 5
+  metrics:
+    - "r2"
+    - "mae"
+    - "rmse"
+    - "accuracy_within_1_run"
+    - "accuracy_within_2_runs"
+
+# Prediction
+prediction:
+  default_model: "random_forest"
+  confidence_threshold: 0.8
+  batch_size: 1000
+
+# System
+system:
+  models_dir: "models"
+  reports_dir: "reports"
+  figures_dir: "reports/figures"
+  logs_dir: "logs"
+  random_seed: 42
+
+# Production Settings
+production:
+  enable_monitoring: true
+  log_level: "INFO"
+  save_predictions: true
+  enable_caching: false
+  max_memory_gb: 8

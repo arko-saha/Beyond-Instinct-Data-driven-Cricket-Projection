@@ -1,0 +1,39 @@
+# Predictive Analysis Configuration
+
+paths:
+  raw_data: "data/batters.csv"
+  processed_data: "data/predictive_processed.csv"
+  model_dir: "models/"
+  reports_dir: "reports/"
+  figures_dir: "reports/figures/"
+
+data_cleaning:
+  dnb_values: ["DNB", "TDNB", "absent", "sub", "-"]
+  drop_cols: ["Start_Date", "Player_Name", "Country"]
+
+split:
+  test_size: 0.15
+  val_size: 0.15
+  random_state: 42
+
+models:
+  xgboost:
+    n_estimators: 1000
+    learning_rate: 0.05
+    max_depth: 6
+    subsample: 0.8
+    colsample_bytree: 0.8
+    early_stopping_rounds: 50
+  
+  random_forest:
+    n_estimators: 200
+    max_depth: 10
+    min_samples_split: 5
+    random_state: 42
+
+  decision_tree:
+    max_depth: 7
+    min_samples_split: 5
+
+  polynomial:
+    degree: 2

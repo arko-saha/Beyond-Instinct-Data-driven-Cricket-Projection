@@ -1,2 +1,43 @@
 data/consolidated_t20_data.csv
 data/consolidated_t20_data.csv
+
+# Log files
+*.log
+logs/
+src/Ball_By_Ball/logs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Models and large files
+models/
+*.joblib
+*.pkl
+*.h5
+*.pb

@@ -8,4 +8,10 @@ seaborn
 beautifulsoup4
 requests
 openpyxl
+xgboost
+lightgbm
+shap
+plotly
+pyyaml
+joblib
 requests
