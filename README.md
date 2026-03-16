@@ -498,26 +498,11 @@ python -m src.preprocessing.pipeline --input data/merged.csv --output data/prepr
 - [ ] Develop recommendation system for team selection
 
 ### Research Directions
-- [ ] Investigate the "Jogi Score" metric for broader application
+- [ ] Investigate the "batting performance metric" for broader application
 - [ ] Develop new cricket-specific metrics
 - [ ] Study the impact of different playing conditions
 - [ ] Analyze powerplay vs death over strategies
 - [ ] Player performance clustering and classification
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-
-### Contribution Guidelines
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is open source and available under the [MIT License](LICENSE).
 
 ## 👤 Author
 
