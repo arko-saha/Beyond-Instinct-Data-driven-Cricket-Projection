@@ -9,7 +9,7 @@ A production-grade machine learning system for predicting runs scored on each ba
 ## 🚀 Features
 
 - **Advanced ML Models**: Random Forest, XGBoost, Neural Networks with custom architectures
-- **Feature Engineering**: 47 engineered features including performance ratios and match context
+- **Feature Engineering**: 50+ engineered features including performance ratios, match context, relative team strength, and lead indicators
 - **Imbalance Handling**: Weighted sampling and SMOTE techniques for discrete target prediction
 - **Comprehensive Evaluation**: Cross-validation, residual analysis, feature importance
 - **Production Ready**: CLI interface, model serialization, batch processing

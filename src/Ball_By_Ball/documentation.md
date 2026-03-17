@@ -26,7 +26,7 @@ This comprehensive machine learning project implements state-of-the-art techniqu
 - **Time Period**: Multiple seasons of professional cricket matches
 - **Target Variable**: `runs_off_bat` (0, 1, 2, 3, 4, 6 runs per ball)
 
-### Key Features (47 total engineered features)
+### Key Features (50+ total engineered features)
 
 #### Match Context Features
 - `completed_over`: Current over number (1-20)
@@ -41,7 +41,13 @@ This comprehensive machine learning project implements state-of-the-art techniqu
 - `bowler_eco_l10`: Bowler economy rate (last 10 overs)
 - `bowler_sr_l10`: Bowler strike rate (last 10 overs)
 
-#### Derived Features (13 Advanced)
+#### Team Strength Features
+- `relative_team_strength`: Difference between batting and bowling team strengths
+- `batting_team_strength`: Aggregated strength of batting team players
+- `bowling_team_strength`: Aggregated strength of bowling team players
+- `lead_of_batting_team`: Current lead margin for batting team
+
+#### Derived Features (16+ Advanced)
 - `batter_performance_ratio`: Strike rate / (average + 1)
 - `is_powerplay`: Binary indicator (overs 1-5)
 - `is_death_overs`: Binary indicator (overs 16-20)
@@ -102,6 +108,18 @@ df['is_opening_batsman'] = (df['striker'].isin(['AC Gilchrist', 'RT Ponting', 'D
 df['is_middle_order'] = ((df['cumulative_wickets'] >= 2) & (df['cumulative_wickets'] <= 7)).astype(int)
 df['is_closing_batsman'] = (df['cumulative_wickets'] >= 8).astype(int)
 ```
+
+#### Relative Team Strength
+The system implements player-level aggregation for team strength calculation:
+- **Batter Strength**: `(Average × Strike Rate) / 100` weighted by recent form
+- **Bowler Strength**: `(1/Economy) × (1/Average) × Strike Rate`
+- **Team Aggregation**: Sum of individual player strengths per team
+- **Relative Strength**: `batting_team_strength - bowling_team_strength`
+
+#### Lead of Batting Team
+Captures the current advantage margin:
+- **First Innings**: `cumulative_runs` (building lead)
+- **Second Innings**: `max(0, cumulative_runs - target_runs)` (positive lead only)
 
 ### 3. Model Development & Training
 

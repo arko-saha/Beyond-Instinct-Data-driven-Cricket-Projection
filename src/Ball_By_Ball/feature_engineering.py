@@ -51,6 +51,12 @@ class CricketFeatureEngineer:
         # Interaction features
         df_featured = self._create_interaction_features(df_featured)
 
+        # Relative team strength features
+        df_featured = self._create_relative_team_strength(df_featured)
+
+        # Lead features
+        df_featured = self._create_lead_features(df_featured)
+
         logger.info(f"Created {len(df_featured.columns) - len(df.columns)} additional features")
         return df_featured
 
@@ -166,6 +172,97 @@ class CricketFeatureEngineer:
                                                    df_interaction['striker'].astype(str))
 
         return df_interaction
+
+    def _create_relative_team_strength(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Create relative team strength feature based on player performances."""
+        df_strength = df.copy()
+
+        try:
+            # Load player data
+            overall_batters = pd.read_csv("../data/Overall_batters.csv")
+            overall_bowlers = pd.read_csv("../data/Overall_Bowlers.csv")
+            batters_clean = pd.read_csv("../data/batters_clean.csv")
+
+            # Compute overall batter strength
+            overall_batters['batter_strength'] = (overall_batters['Average'] * overall_batters['SR']) / 100
+
+            # Compute overall bowler strength
+            overall_bowlers['bowler_strength'] = ((1 / (overall_bowlers['Economy'] + 1e-6)) * 
+                                                (1 / (overall_bowlers['Average'] + 1e-6)) * 
+                                                overall_bowlers['SR'])
+
+            # Add form: last 10 matches average SR for batters
+            batters_clean['Start_Date'] = pd.to_datetime(batters_clean['Start_Date'])
+            batters_form = (batters_clean.sort_values(['Player', 'Start_Date'])
+                           .groupby('Player').tail(10)
+                           .groupby('Player')['SR'].mean().reset_index())
+            batters_form.rename(columns={'SR': 'form_sr'}, inplace=True)
+
+            # Merge form
+            overall_batters = overall_batters.merge(batters_form, 
+                                                  left_on='Player_Name', 
+                                                  right_on='Player', 
+                                                  how='left')
+            overall_batters['batter_strength'] = (overall_batters['batter_strength'] * 
+                                                (overall_batters['form_sr'] / 100))
+
+            # Create strength dicts
+            batter_strengths = dict(zip(overall_batters['Player_Name'], overall_batters['batter_strength']))
+            bowler_strengths = dict(zip(overall_bowlers['Player_Name'], overall_bowlers['bowler_strength']))
+
+            # Ensure match_id is string
+            df_strength['match_id'] = df_strength['match_id'].astype(str)
+
+            # Compute team strengths per match
+            def compute_team_strengths(group):
+                batting_team = group['batting_team'].iloc[0]
+                bowling_team = group['bowling_team'].iloc[0]
+                
+                batters = group['striker'].unique()
+                batting_strength = sum(batter_strengths.get(b, 0) for b in batters)
+                
+                bowlers = group['bowler'].unique()
+                bowling_strength = sum(bowler_strengths.get(b, 0) for b in bowlers)
+                
+                return pd.Series({'batting_team_strength': batting_strength, 
+                                'bowling_team_strength': bowling_strength})
+
+            team_strengths = df_strength.groupby('match_id').apply(compute_team_strengths).reset_index()
+            team_strengths['match_id'] = team_strengths['match_id'].astype(str)
+
+            # Merge
+            df_strength = df_strength.merge(team_strengths, on='match_id', how='left')
+
+            # Compute relative strength
+            df_strength['relative_team_strength'] = (df_strength['batting_team_strength'] - 
+                                                   df_strength['bowling_team_strength'])
+
+            logger.info("Relative team strength features created")
+
+        except Exception as e:
+            logger.warning(f"Could not create relative team strength features: {e}")
+            df_strength['batting_team_strength'] = 0
+            df_strength['bowling_team_strength'] = 0
+            df_strength['relative_team_strength'] = 0
+
+        return df_strength
+
+    def _create_lead_features(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Create lead of batting team feature."""
+        df_lead = df.copy()
+
+        if 'innings' in df_lead.columns and 'cumulative_runs' in df_lead.columns and 'target_runs' in df_lead.columns:
+            df_lead['lead_of_batting_team'] = df_lead.apply(
+                lambda row: (row['cumulative_runs'] if row['innings'] == 1 
+                           else max(0, row['cumulative_runs'] - row['target_runs'])),
+                axis=1
+            )
+            logger.info("Lead of batting team feature created")
+        else:
+            df_lead['lead_of_batting_team'] = 0
+            logger.warning("Required columns for lead feature not found")
+
+        return df_lead
 
     def encode_categorical_features(self, df: pd.DataFrame, fit: bool = True) -> pd.DataFrame:
         """
