@@ -1,5 +1,4 @@
-data/consolidated_t20_data.csv
-data/consolidated_t20_data.csv
+data/
 
 # Log files
 *.log
